@@ -85,7 +85,6 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, a:focus-visib
 .document-viewer { padding:6px 4px 20px; line-height:1.7; }
 .document-viewer.study_guide { background:linear-gradient(180deg,#172143,#10162d); border:1px solid #303c67; border-radius:16px; padding:24px; }
 .document-viewer.brief { border-left:4px solid var(--yellow); padding:8px 24px; }
-.document-viewer.deep_dive { background:#101832; border:1px solid #303c67; border-radius:16px; padding:24px; }
 .document-viewer h1,.document-viewer h2,.document-viewer h3 { color:var(--text); line-height:1.25; }
 .document-viewer li { margin:7px 0; }
 .drop-zone { display:grid; place-items:center; gap:6px; padding:24px 12px; margin:14px 0; text-align:center; border:1px dashed #6673ad; border-radius:14px; background:#111832; color:var(--text); cursor:pointer; transition:border-color .2s,background .2s; }
