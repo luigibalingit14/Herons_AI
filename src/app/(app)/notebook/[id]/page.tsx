@@ -23,7 +23,7 @@ export default async function NotebookPage({ params }: { params: Promise<{ id: s
       .order("created_at"),
     supabase
       .from("messages")
-      .select("id,role,content,citations,model_used")
+      .select("id,role,content,citations")
       .eq("notebook_id", id)
       .order("created_at"),
     supabase

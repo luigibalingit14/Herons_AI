@@ -169,7 +169,6 @@ export async function POST(request: Request) {
 
   return NextResponse.json({
     message: generated.message,
-    model: generated.model,
     tokens_used: generated.tokens,
     cost_usd: 0,
     citations: (sources ?? []).map(s => ({ title: s.title })),
