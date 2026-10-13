@@ -7,6 +7,8 @@ Herons.AI is a dark-first research workspace for University of Makati students. 
 1. Install Node.js 20+ and copy `.env.example` to `.env.local`.
 2. Create a Supabase project, enable Google OAuth, and run the SQL files in `supabase/migrations` in order.
 3. Fill in the public Supabase URL/key and whichever server-side model credentials you want to use.
+   OpenRouter supports an optional backup key: set `OPENROUTER_API_KEY` as the primary key and
+   `OPENROUTER_API_KEY_2` as the fallback key. Both keys stay server-side and must never be committed.
 4. Install and run the app:
 
 ```powershell

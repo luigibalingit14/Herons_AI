@@ -181,34 +181,39 @@ async function generate(
 ): Promise<{ message: string; model: string; tokens: number } | null> {
   const errors: string[] = [];
 
-  // ── 1. OpenRouter (primary — most reliable, uses your API key) ──
-  if (process.env.OPENROUTER_API_KEY) {
+  // ── 1. OpenRouter (primary, with an optional backup key) ──
+  const openRouterKeys = [process.env.OPENROUTER_API_KEY, process.env.OPENROUTER_API_KEY_2]
+    .filter((key): key is string => Boolean(key?.trim()));
+  if (openRouterKeys.length > 0) {
     const model = process.env.OPENROUTER_MODEL ?? "openai/gpt-4o-mini";
-    try {
-      const r = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-          authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
-          "HTTP-Referer": process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000",
-          "X-Title": "Herons AI",
-        },
-        body: JSON.stringify({
-          model,
-          messages: [{ role: "user", content: prompt }],
-        }),
-        signal: AbortSignal.timeout(60000),
-      });
-      if (r.ok) {
-        const d = await r.json();
-        const message = d.choices?.[0]?.message?.content;
-        if (typeof message === "string")
-          return { message, model: `openrouter/${model}`, tokens: d.usage?.total_tokens ?? 0 };
-      } else {
-        errors.push(`OpenRouter ${r.status}: ${await r.text().catch(() => "")}`);
+    for (let keyIndex = 0; keyIndex < openRouterKeys.length; keyIndex += 1) {
+      const key = openRouterKeys[keyIndex];
+      try {
+        const r = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+            authorization: `Bearer ${key}`,
+            "HTTP-Referer": process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000",
+            "X-Title": "Herons AI",
+          },
+          body: JSON.stringify({
+            model,
+            messages: [{ role: "user", content: prompt }],
+          }),
+          signal: AbortSignal.timeout(60000),
+        });
+        if (r.ok) {
+          const d = await r.json();
+          const message = d.choices?.[0]?.message?.content;
+          if (typeof message === "string")
+            return { message, model: `openrouter/${model}`, tokens: d.usage?.total_tokens ?? 0 };
+        } else {
+          errors.push(`OpenRouter key ${keyIndex + 1} ${r.status}: ${await r.text().catch(() => "")}`);
+        }
+      } catch (e) {
+        errors.push(`OpenRouter key ${keyIndex + 1} error: ${e instanceof Error ? e.message : String(e)}`);
       }
-    } catch (e) {
-      errors.push(`OpenRouter error: ${e instanceof Error ? e.message : String(e)}`);
     }
   }
 
