@@ -558,12 +558,8 @@ export function NotebookClient({
           <strong>{uploading ? "Uploading and processing…" : "Drop files here"}</strong>
           <small className="muted">PDF, DOCX, or TXT · up to 50 MB</small>
         </div>
-        <p className="muted">Add PDFs, documents, links, or notes to ground your research.</p>
+        <p className="muted">Add PDFs, documents, or notes to ground your research.</p>
         <div className="card" style={{ padding: 12, marginTop: 16 }}>
-          <input className="input" placeholder="Paste a URL or YouTube link" />
-          <button className="button secondary" style={{ marginTop: 8, width: "100%" }}>
-            <MaterialIcon name="link" size={15} /> Add URL
-          </button>
           <button className="button secondary" style={{ marginTop: 8, width: "100%" }}>
             Add text
           </button>
