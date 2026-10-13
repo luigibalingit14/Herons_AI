@@ -19,7 +19,7 @@ type Message = {
   model_used?: string | null;
   citations?: { title: string }[] | null;
 };
-type StudioMode = "flashcards" | "quiz" | "study_guide" | "brief" | "deep_dive";
+type StudioMode = "flashcards" | "quiz" | "study_guide" | "brief";
 type Flashcard = { question: string; answer: string };
 type QuizQuestion = { question: string; options: string[]; answer: string };
 type SavedMaterial = {
@@ -36,7 +36,6 @@ const studioOptions: [StudioMode, string, string][] = [
   ["quiz", "Quiz", "Test your understanding with an interactive knowledge check."],
   ["study_guide", "Study Guide", "Build a structured reference guide from the notebook."],
   ["brief", "Quick Brief", "Get a concise summary of the most important points."],
-  ["deep_dive", "Deep Dive Audio", "Create a conversational podcast-style explanation."],
 ];
 
 const modeLabels: Record<string, string> = {
@@ -44,7 +43,6 @@ const modeLabels: Record<string, string> = {
   quiz: "Quiz",
   study_guide: "Study Guide",
   brief: "Quick Brief",
-  deep_dive: "Deep Dive Audio",
 };
 
 const modeIcons: Record<string, string> = {
@@ -52,7 +50,6 @@ const modeIcons: Record<string, string> = {
   quiz: "auto_awesome",
   study_guide: "menu_book",
   brief: "description",
-  deep_dive: "auto_awesome",
 };
 
 /** Normalize JSON responses that local/remote models may wrap in Markdown or prose. */
@@ -1091,7 +1088,7 @@ export function NotebookClient({
                 )}
               </div>
             ) : (
-              /* Markdown documents: study_guide, brief, deep_dive */
+              /* Markdown documents: study_guide, brief */
               <div className={`document-viewer ${studioResult.mode}`}>
                 <ReactMarkdown>{studioResult.content}</ReactMarkdown>
               </div>

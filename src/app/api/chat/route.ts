@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 
 type Body = { message?: unknown; notebookId?: unknown; mode?: unknown; sourceId?: unknown };
-const modes = ["chat", "flashcards", "quiz", "study_guide", "brief", "deep_dive"] as const;
+const modes = ["chat", "flashcards", "quiz", "study_guide", "brief"] as const;
 const jsonError = (error: string, status = 400) => NextResponse.json({ error }, { status });
 
 /** Normalize JSON responses that local/remote models may wrap in Markdown or prose. */
@@ -106,8 +106,6 @@ export async function POST(request: Request) {
     study_guide:
       "Return a well-structured Markdown study guide with headings, key concepts, and source-grounded explanations.",
     brief: "Return a concise Markdown brief with a summary and 5 key takeaways.",
-    deep_dive:
-      "Return a conversational Markdown podcast script with an introduction, sections, and conclusion.",
   };
 
   const prompt =

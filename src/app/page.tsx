@@ -5,7 +5,7 @@ const features = [
   {
     number: "01",
     title: "Bring your sources together",
-    description: "Upload documents and links into one focused notebook built for the way you study.",
+    description: "Upload documents and notes into one focused notebook built for the way you study.",
   },
   {
     number: "02",

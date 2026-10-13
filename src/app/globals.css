@@ -31,6 +31,8 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, a:focus-visib
 .auth-page { min-height:100vh; display:grid; place-items:center; padding:24px; background:radial-gradient(circle at 50% 0,#1b2867,transparent 35rem),var(--deep); }
 .auth-card { width:min(440px,100%); padding:34px; }
 .auth-card .umak-brand { margin-bottom:24px; }
+.auth-back { display:inline-block; margin-bottom:24px; color:#aeb7d9; font-size:13px; }
+.auth-back:hover { color:var(--yellow); }
 .auth-form { display:grid; gap:14px; margin-top:26px; }
 .label { display:grid; gap:7px; color:#d8dcf0; font-size:14px; }
 .workspace { display:grid; grid-template-columns:280px minmax(0,1fr) 320px; gap:16px; height:calc(100vh - 68px); padding:16px; }
